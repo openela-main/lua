@@ -4,7 +4,7 @@
 # If you are incrementing major_version, enable bootstrapping and adjust accordingly.
 # Version should be the latest prior build. If you don't do this, RPM will break and
 # everything will grind to a halt.
-%global bootstrap 1
+%global bootstrap 0
 %global bootstrap_major_version 5.3
 %global bootstrap_version %{bootstrap_major_version}.5
 
@@ -14,7 +14,7 @@
 
 Name:           lua
 Version:        %{major_version}.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Powerful light-weight programming language
 License:        MIT
 URL:            http://www.lua.org/
@@ -213,6 +213,9 @@ popd
 %{_libdir}/*.a
 
 %changelog
+* Mon Apr 17 2023 Florian Festi <ffesti@redhat.com> - 5.4.4-4
+- Disable bootstrap mode forgotten on 5.4 rebase (#2135419)
+
 * Fri Feb 03 2023 Florian Festi <ffesti@redhat.com> - 5.4.4-3
 - Apply upstream patch for CVE-2022-28805
 
