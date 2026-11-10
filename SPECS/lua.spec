@@ -1,6 +1,6 @@
 %global major_version 5.4
 # Normally, this is the same as version, but... not always.
-%global test_version 5.4.6
+%global test_version 5.4.8
 # If you are incrementing major_version, enable bootstrapping and adjust accordingly.
 # Version should be the latest prior build. If you don't do this, RPM will break and
 # everything will grind to a halt.
@@ -13,8 +13,8 @@
 
 
 Name:           lua
-Version:        %{major_version}.6
-Release:        7%{?dist}
+Version:        %{major_version}.8
+Release:        1%{?dist}
 Summary:        Powerful light-weight programming language
 License:        MIT
 URL:            https://www.lua.org/
@@ -36,9 +36,6 @@ Patch4:         %{name}-5.3.0-configure-compat-module.patch
 Patch5:         %{name}-5.3.0-autotoolize.patch
 Patch6:		%{name}-5.3.5-luac-shared-link-fix.patch
 %endif
-Patch7:         lua-5.4.6-big-endian-fix.patch
-# https://www.lua.org/bugs.html
-Patch8:		lua-5.4.6-bug1.patch
 
 BuildRequires:  automake autoconf libtool readline-devel ncurses-devel
 BuildRequires:  make
@@ -95,8 +92,6 @@ mv src/luaconf.h src/luaconf.h.template.in
 # Put proper version in configure.ac, patch0 hardcodes 5.3.0
 sed -i 's|5.3.0|%{version}|g' configure.ac
 autoreconf -ifv
-%patch -P7 -p1 -b .big-endian-fix
-%patch -P8 -p1 -b .bug1
 
 
 %if 0%{?bootstrap}
@@ -211,6 +206,9 @@ popd
 %{_libdir}/*.a
 
 %changelog
+* Tue Apr 14 2026 Michal Domonkos <mdomonko@redhat.com> - 5.4.8-1
+- Update to 5.4.8 (RHEL-68067)
+
 * Tue Oct 29 2024 Troy Dawson <tdawson@redhat.com> - 5.4.6-7
 - Bump release for October 2024 mass rebuild:
   Resolves: RHEL-64018
